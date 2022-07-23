@@ -10,11 +10,19 @@ jobs:
         with:
           submodules: recursive
       - name: install dependencies
-        run: HOMEBREW_NO_AUTO_UPDATE=1 brew install qt@5 libsodium libzip qrencode unbound cmake hidapi openssl expat libunwind-headers protobuf pkgconfig zbar boost
+        run: HOMEBREW_NO_AUTO_UPDATE=1 brew install qt@5 libsodium libzip qrencode unbound cmake hidapi openssl expat libunwind-headers protobuf pkgconfig zbar
+      - name: build boost from source
+        run: wget https://downloads.sourceforge.net/project/boost/boost/1.73.0/boost_1_73_0.tar.bz2 && \
+    echo "4eb3b8d442b426dc35346235c8733b5ae35ba431690e38c6a8263dce9fcbb402 boost_1_73_0.tar.bz2" | sha256sum -c && \
+    tar -xvf boost_1_73_0.tar.bz2 && \
+    cd boost_1_73_0 && \
+    ./bootstrap.sh && \
+    ./b2 --with-atomic --with-system --with-filesystem --with-thread --with-date_time --with-chrono --with-regex --with-serialization \
+    --with-program_options --with-locale variant=release link=static runtime-link=static cflags="${CFLAGS}" cxxflags="${CXXFLAGS}" install -a --prefix=/usr
       - name: install polyseed
         run: git clone https://github.com/tevador/polyseed.git && cd polyseed && git reset --hard e38516561c647522e2e2608f13eabdeab61d9a5d && cmake . && make && make install
       - name: build
-        run: CMAKE_PREFIX_PATH='/usr/local/opt/qt@5/' CMAKE_INCLUDE_PATH=/usr/local/opt/boost@1.76/include LDFLAGS="-L/usr/local/opt/boost@1.76/lib" make mac-release -j3
+        run: CMAKE_PREFIX_PATH='/usr/local/opt/qt@5/' make mac-release -j3
       - name: create .tar
         run: tar -cf feather.tar feather.app
         working-directory: build/bin
