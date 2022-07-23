@@ -12,7 +12,7 @@ jobs:
       - name: install dependencies
         run: HOMEBREW_NO_AUTO_UPDATE=1 brew install qt@5 libsodium libzip qrencode unbound cmake hidapi openssl expat libunwind-headers protobuf pkgconfig zbar
       - name: icu
-        run: git clone -b release-64-2 --depth 1 https://github.com/unicode-org/icu && cd icu/icu4c/source && git reset --hard e2d85306162d3a0691b070b4f0a73e4012433444 && ./configure --disable-shared --enable-static --disable-tests --disable-samples && make & make install
+        run: git clone -b release-64-2 --depth 1 https://github.com/unicode-org/icu && cd icu/icu4c/source && git reset --hard e2d85306162d3a0691b070b4f0a73e4012433444 && ./configure --disable-shared --enable-static --disable-tests --disable-samples && make && make install
       - name: build boost from source
         run: wget https://downloads.sourceforge.net/project/boost/boost/1.73.0/boost_1_73_0.tar.bz2 && tar -xf boost_1_73_0.tar.bz2 && cd boost_1_73_0 && ./bootstrap.sh && ./b2 --with-atomic --with-system --with-filesystem --with-thread --with-date_time --with-chrono --with-regex --with-serialization  --with-program_options --with-locale variant=release link=static runtime-link=static cflags="-fPIC" cxxflags="-fPIC" install -a --prefix="$(pwd)/boost"
       - name: install polyseed
