@@ -249,6 +249,7 @@ target_link_libraries(feather
         Qt::Xml
         Qt::WebSockets
         ${ICU_LIBRARIES}
+        iconv
         openpgp
         Threads::Threads
         ${QRENCODE_LIBRARY}
@@ -257,6 +258,7 @@ target_link_libraries(feather
         ${ZBAR_LIBRARIES}
         ${POLYSEED_LIBRARY}
         SingleApplication::SingleApplication
+        iconv
         )
 
 if(Qt6_FOUND)
