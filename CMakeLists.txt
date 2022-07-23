@@ -107,7 +107,8 @@ find_package(Boost 1.58 REQUIRED COMPONENTS
         chrono
         regex
         serialization
-        program_options)
+        program_options
+        locale)
 
 if(UNIX AND NOT APPLE)
     if (NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
