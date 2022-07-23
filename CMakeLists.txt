@@ -29,9 +29,9 @@ include(CheckCXXCompilerFlag)
 include(CheckIncludeFile)
 include(CheckSymbolExists)
 
-if(DEBUG)
-    set(CMAKE_VERBOSE_MAKEFILE ON)
-endif()
+
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 
 set(BUILD_GUI_DEPS ON)
 option(ARCH "Target architecture" "native")
