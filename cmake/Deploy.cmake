@@ -24,10 +24,6 @@ if(APPLE OR (WIN32 AND NOT STATIC))
                     COMMENT "Copying libqsvg.dylib, running install_name_tool"
                     )
         endif()
-
-               add_custom_command(TARGET deploy
-                POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy /usr/local/lib/libboost_system-mt.dylib $<TARGET_FILE_DIR:feather>/../Frameworks/
-                )
     endif()
 endif()
+    
