@@ -238,6 +238,7 @@ target_link_libraries(feather
         easylogging
         ringct
         ${Boost_LIBRARIES}
+        /usr/local/lib/libiconv.a
         ${OPENSSL_LIBRARIES}
         ${CMAKE_DL_LIBS}
         ${EXTRA_LIBRARIES}
@@ -249,7 +250,6 @@ target_link_libraries(feather
         Qt::Xml
         Qt::WebSockets
         ${ICU_LIBRARIES}
-        iconv
         openpgp
         Threads::Threads
         ${QRENCODE_LIBRARY}
@@ -258,7 +258,6 @@ target_link_libraries(feather
         ${ZBAR_LIBRARIES}
         ${POLYSEED_LIBRARY}
         SingleApplication::SingleApplication
-        iconv
         )
 
 if(Qt6_FOUND)
