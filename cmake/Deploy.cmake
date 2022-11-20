@@ -26,3 +26,4 @@ if(APPLE OR (WIN32 AND NOT STATIC))
         endif()
     endif()
 endif()
+    

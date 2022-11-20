@@ -29,9 +29,9 @@ include(CheckCXXCompilerFlag)
 include(CheckIncludeFile)
 include(CheckSymbolExists)
 
-if(DEBUG)
-    set(CMAKE_VERBOSE_MAKEFILE ON)
-endif()
+
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 
 set(BUILD_GUI_DEPS ON)
 option(ARCH "Target architecture" "native")
@@ -41,7 +41,7 @@ set(USE_SINGLE_BUILDDIR ON)
 check_include_file(sys/prctl.h HAVE_SYS_PRCTL_H)
 check_symbol_exists(prctl "sys/prctl.h" HAVE_PRCTL)
 
-if(STATIC)
+if(STATIC OR APPLE)
     message(STATUS "Initiating static build, turning on manual submodules")
     set(MANUAL_SUBMODULES 1)
 
@@ -101,6 +101,7 @@ endif()
 find_package(Boost 1.58 REQUIRED COMPONENTS
         system
         filesystem
+        atomic
         thread
         date_time
         chrono
@@ -172,6 +173,9 @@ message(STATUS "Using Boost include dir at ${Boost_INCLUDE_DIRS}")
 message(STATUS "Using Boost libraries at ${Boost_LIBRARIES}")
 
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+if(APPLE)
+  set(ICU_LIBRARIES iconv)
+endif()
 if(MINGW)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wa,-mbig-obj")
     set(EXTRA_LIBRARIES mswsock;ws2_32;iphlpapi;crypt32;bcrypt)

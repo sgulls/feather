@@ -238,6 +238,7 @@ target_link_libraries(feather
         easylogging
         ringct
         ${Boost_LIBRARIES}
+        /usr/local/lib/libiconv.a
         ${OPENSSL_LIBRARIES}
         ${CMAKE_DL_LIBS}
         ${EXTRA_LIBRARIES}
